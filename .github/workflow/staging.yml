@@ -2,7 +2,7 @@ name: Django CI/CD
 on:
   push:
     branches:
-      - main
+      - staging
 jobs:
   build:
     runs-on: ubuntu-latest
