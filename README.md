@@ -40,19 +40,19 @@ Ensure that you have Python (Version 3.9) and Django installed and properly conf
 ### Installation
 To run this Django project locally, please follow these steps:
 - Clone the repository:
-  "git clone https://github.com/akirachix/Amali-Backend.git"
+`git clone https://github.com/akirachix/Amali-Backend.git`
 - Navigate to the project directory:
-  "cd Amali-Backend"
+` cd Amali-Backend`
 - Create a virtual environment:
-  "python -m venv <your environment name>"
+`python -m venv <your environment name>`
 - Activate the virtual environment:
-  On Linux - "python manage.py source <environment name>/bin/activate"
+  On Linux -`python manage.py source <environment name>/bin/activate`
 - Install requirements:
-  "pip install -r requirements.txt"
+`pip install -r requirements.txt`
 - Apply migrations:
-  "python manage.py migrate"
+`python manage.py migrate`
 - Run the development server:
-  "python manage.py runserver"
+`python manage.py runserver`
 
 ## Project Structure
 
