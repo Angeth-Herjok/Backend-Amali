@@ -18,6 +18,8 @@ jobs:
         python-version: '3.9'
     - name: Install Dependencies
       run: pip install -r requirements.txt
+    - name: Check Syntax # check code formatting
+      run: pre-commit run --all-files
     - name: Run Migrations
       run: python manage.py migrate
     - name: Run Tests
