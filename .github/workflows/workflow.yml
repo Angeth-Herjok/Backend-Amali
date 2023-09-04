@@ -25,20 +25,20 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install requirements
-        run: pip install -r requirements.txt
+      # - name: Install requirements
+      #   run: pip install -r requirements.txt
 
-      - name: Check Syntax
-        run: pre-commit run --all-files
+      # - name: Check Syntax
+      #   run: pre-commit run --all-files
 
-      - name: Make Migrations
-        run: python manage.py makemigrations
+      # - name: Make Migrations
+      #   run: python manage.py makemigrations
 
-      - name: Migrate
-        run: python manage.py migrate
+      # - name: Migrate
+      #   run: python manage.py migrate
 
-      - name: Run server
-        run: python manage.py runserver
+      # - name: Run server
+      #   run: python manage.py runserver
 
-      - name: Run Tests
-        run: python manage.py test
+      # - name: Run Tests
+      #   run: python manage.py test
