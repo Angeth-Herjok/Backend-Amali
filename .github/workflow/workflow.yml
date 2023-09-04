@@ -2,6 +2,8 @@ name: Django CI/CD
 on:
   push:
     branches:
+      - main
+      - staging
       - dev
 jobs:
   build:
@@ -20,3 +22,8 @@ jobs:
       run: python manage.py migrate
     - name: Run Tests
       run: python manage.py test
+
+    - name: Format Code with pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
