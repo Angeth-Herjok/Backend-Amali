@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'dbname',
         'USER': 'amaligroups',
         'PASSWORD': 'dbname1234',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
