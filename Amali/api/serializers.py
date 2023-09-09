@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from RegularUser.models import Signup
+from regularuser.models import Signup
 
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:

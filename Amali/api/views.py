@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from django.shortcuts import render
-from RegularUser.models import Signup
+from regularuser.models import Signup
 from .serializers import SignupSerializer
 from rest_framework.response import Response
 from rest_framework import status

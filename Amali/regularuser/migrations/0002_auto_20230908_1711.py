@@ -7,7 +7,7 @@ import phonenumber_field.modelfields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('RegularUser', '0001_initial'),
+        ('regularuser', '0001_initial'),
     ]
 
     operations = [
