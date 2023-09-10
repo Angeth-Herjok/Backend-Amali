@@ -8,5 +8,6 @@ class Donation(models.Model):
     def __str__(self):
         return f" Amount: {self.amount}"  
     
+       
     class Meta:
         verbose_name_plural = "Donation"        
