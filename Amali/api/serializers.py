@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from sponsor.models import Sponsor
+from sponsors.models import CustomUser
 
-class SponsorSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Sponsor
-        fields = '__all__'
+        model = CustomUser
+        fields = ('id', 'username', 'email', 'phoneNumber', 'organisation', 'bio')
