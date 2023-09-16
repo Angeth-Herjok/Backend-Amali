@@ -5,6 +5,7 @@ from sponsors.models import CustomUser
 from .serializers import CustomUserSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
 import logging
 
 logger = logging.getLogger(__name__)
@@ -41,37 +42,35 @@ class CustomUserDetailView(APIView):
         user.delete()
         return Response("User deleted", status=status.HTTP_204_NO_CONTENT)
 
+
+
+
 class CustomUserRegistrationView(APIView):
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
+            
+            password = serializer.validated_data['password']
+            hashed_password = make_password(password)
+            serializer.validated_data['password'] = hashed_password
+
+            
             serializer.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CustomUserLoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        logger.debug(f'Username: {username}, Password: {password}')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
-            try:
-                token = Token.objects.get(user=user)
-                token.delete()
-            except Token.DoesNotExist:
-                pass
-            token = Token.objects.create(user=user)
             login(request, user)
-            return Response({'token': token.key, 'detail': 'Sonsor logged in successfully'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Sponsor logged in successfully'}, status=status.HTTP_200_OK)
         else:
-            logger.warning('Authentication failed')
-            return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-
-
-
-
+            return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 

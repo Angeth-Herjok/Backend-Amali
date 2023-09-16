@@ -16,3 +16,4 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.site_header = 'My Custom User Administration'
 admin.site.site_title = 'Custom User Admin'
 admin.site.index_title = 'Manage Custom Users'
+

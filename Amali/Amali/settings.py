@@ -111,7 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# import logging
+# logging.basicConfig()
+# logger = logging.getLogger('django.db.backends')
+# logger.setLevel(logging.DEBUG)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -145,6 +148,9 @@ REST_FRAMEWORK = {
     ],
    
 }
+
+AUTH_USER_MODEL = 'sponsors.CustomUser'  
+
 
 
 AUTHENTICATION_BACKENDS = [
