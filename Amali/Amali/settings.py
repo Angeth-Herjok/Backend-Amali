@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'sponsors',
 
+    'donation',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

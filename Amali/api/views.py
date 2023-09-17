@@ -6,9 +6,11 @@ from .serializers import CustomUserSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password
-import logging
-
+from donation.models import Donation
+from .serializers import DonationSerializer
+import logging   
 logger = logging.getLogger(__name__)
+
 
 class CustomUserListView(APIView):
     def get(self, request):
@@ -18,6 +20,16 @@ class CustomUserListView(APIView):
 
     def post(self, request):
         serializer = CustomUserSerializer(data=request.data)
+
+
+class DonationListView(APIView):
+    def get(self, request):
+        donations = Donation.objects.all()
+        serializer = DonationSerializer(donations, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = DonationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -74,3 +86,21 @@ class CustomUserLoginView(APIView):
             return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+class DonationDetailView(APIView):
+    def get(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        serializer = DonationSerializer(donation)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        serializer = DonationSerializer(donation, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        donation.delete()
+        return Response("Donation deleted", status=status.HTTP_204_NO_CONTENT)
