@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    # 'knox',
+    'rest_framework.authtoken',
+    'phonenumber_field',
+    'sponsors',
+
     'donation',
     'rest_framework',
 ]
@@ -45,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',      
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -75,16 +81,20 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from decouple import config
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbname',
-        'USER': 'amaligroups',
-        'PASSWORD': 'dbname1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
+
+
 
 
 # Password validation
@@ -104,7 +114,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# import logging
+# logging.basicConfig()
+# logger = logging.getLogger('django.db.backends')
+# logger.setLevel(logging.DEBUG)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -127,3 +140,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        # 'knox.auth.TokenAuthentication',
+        
+    ],
+   
+}
+
+AUTH_USER_MODEL = 'sponsors.CustomUser'  
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+
+
+
+
+
+
+
