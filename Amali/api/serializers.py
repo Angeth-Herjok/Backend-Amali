@@ -1,8 +1,40 @@
 from rest_framework import serializers
-from regularuser.models import Signup
-
-class SignupSerializer(serializers.ModelSerializer):
+from django.contrib.auth.models import Group, Permission
+from user.models import CustomUser
+class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Signup
-        fields = "__all__"
+        model = Permission
+        fields = '__all__'
+class GroupSerializer(serializers.ModelSerializer):
+    permissions = PermissionSerializer(many=True, read_only=True)
+    class Meta:
+        model = Group
+        fields = '__all__'
+class CustomUserSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True, read_only=True)
+    class Meta:
+        model = CustomUser
+        fields = (
+            'id',
+            'username',
+            'email',
+            'first_name',
+             'role',
+            'groups',
+            'password',
+            'confirm_password',
+        )
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'confirm_password': {'write_only': True},
+        }
+    def create(self, validated_data):
+        confirm_password = validated_data.pop('confirm_password', None)
+        if confirm_password and validated_data['password'] != confirm_password:
+            raise serializers.ValidationError("Passwords do not match")
+        user = CustomUser.objects.create(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
 
