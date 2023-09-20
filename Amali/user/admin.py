@@ -7,7 +7,7 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('username', 'email',)
     list_filter = ('is_staff', 'is_active', 'groups')
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
+        (None, {'fields': ('username', 'email')}),
         # ('Contact Information', {'fields': ('phone',)}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'password1', 'password2','is_staff', 'is_active', 'groups', 'user_permissions'),
+            'fields': ('username', 'email','is_staff', 'is_active', 'groups', 'user_permissions'),
         }),
     )
 admin.site.register(CustomUser, CustomUserAdmin)

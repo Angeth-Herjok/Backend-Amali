@@ -12,8 +12,6 @@ class CustomUser(AbstractUser):
     role = models.CharField(_('Role'), max_length=15, choices=USER_ROLES, default='regular_user')
     email = models.EmailField(unique=True)
     phone_number = PhoneNumberField(_('Phone Number'), blank=True, null=True)
-    password = models.CharField(max_length=128)
-    confirm_password = models.CharField(max_length=128, null=True)
     groups = models.ManyToManyField(
         Group,
         related_name='customuser_set',
@@ -31,7 +29,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
-
-    
-

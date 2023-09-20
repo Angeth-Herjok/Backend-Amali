@@ -1,15 +1,18 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
 from user.models import CustomUser
+
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = '__all__'
+
 class GroupSerializer(serializers.ModelSerializer):
     permissions = PermissionSerializer(many=True, read_only=True)
     class Meta:
         model = Group
         fields = '__all__'
+
 class CustomUserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True, read_only=True)
     class Meta:
@@ -19,15 +22,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'username',
             'email',
             'first_name',
-             'role',
+            'role',
             'groups',
             'password',
-            'confirm_password',
+            
         )
         extra_kwargs = {
             'password': {'write_only': True},
-            'confirm_password': {'write_only': True},
         }
+
     def create(self, validated_data):
         confirm_password = validated_data.pop('confirm_password', None)
         if confirm_password and validated_data['password'] != confirm_password:
