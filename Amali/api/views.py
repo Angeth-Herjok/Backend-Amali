@@ -1,122 +1,3 @@
-# from rest_framework.views import APIView
-# from django.contrib.auth import authenticate, login
-# from django.http import JsonResponse
-# from django.shortcuts import render
-# from regularuser.models import RegularUser
-# from .serializers import RegularUserSerializer
-# from rest_framework.response import Response
-# from rest_framework import status
-# from django.http import JsonResponse
-# from django.views import View
-
-
-# from rest_framework.authtoken.models import Token
-# # from rest_framework.permissions import IsAuthenticated
-# import logging
-# logger = logging.getLogger(__name__)
-
-
-# class RegularUserListView(APIView):
-#     def get(self, request, signup_id=None):
-#         if signup_id is None:
-#             signups = RegularUser.objects.all()
-#             serializer = RegularUserSerializer(signups, many=True)
-#             return Response(serializer.data)
-#         else:
-#             try:
-#                 signup = RegularUser.objects.get(id=signup_id)
-#                 serializer = RegularUserSerializer(signup)
-#                 return Response(serializer.data)
-#             except RegularUser.DoesNotExist:
-#                 return Response({"error": "RegularUser not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-#     def post(self, request):
-#         serializer = RegularUserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# class RegularUserDetailView(APIView):
-#     def patch(self, request, id, format=None):
-#         try:
-#             signup = RegularUser.objects.get(id=id)
-#             serializer = RegularUserSerializer(signup, data=request.data, partial=True)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return Response(serializer.data)
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         except RegularUser.DoesNotExist:
-#             return Response("Regular user not found", status=status.HTTP_404_NOT_FOUND)
-
-#     def get(self, request, id, format=None):
-#         signup = RegularUser.objects.get(id=id)
-#         serializer = RegularUserSerializer(signup)
-#         return Response(serializer.data)
-
-#     def put(self, request, id, format=None):
-#         signup = RegularUser.objects.get(id=id)
-#         serializer = RegularUserSerializer(signup, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#     def delete(self, request, id, format=None):
-#         signup = RegularUser.objects.get(id=id)
-#         signup.delete()
-#         return Response("Regular user deleted", status=status.HTTP_204_NO_CONTENT)
-
-
-
-# class RegularUserLoginView(APIView):
-#     def login(request):
-#         if request.method == 'POST':
-#             username = request.POST['username']
-#             password = request.POST['password']
-#             user = authenticate(username=username, password=password)
-
-#             if user is not None:
-#                 if user.is_active:
-#                     auth_login(request, user)
-#                     return redirect('index')
-#                 else:
-#                     messages.error(request, 'Your account is inactive.')
-#         else:
-#             messages.error(request, 'Invalid username or password.')
-#         return redirect('login')
-
-    
-
-
-    # def post(self, request):
-    #     username = request.data.get('username')
-    #     password = request.data.get('password')        
-    #     logger.debug(f'Username: {username}, Password: {password}')        
-    #     user = authenticate(request, username=username, password=password)        
-    #     if user is not None:
-    #         try:                
-    #             token = Token.objects.get(user=user)
-    #             token.delete()
-    #         except Token.DoesNotExist:
-    #             pass            
-    #             token = Token.objects.create(user=user)            
-    #             login(request, user)
-    #         return Response({'token': token.key, 'detail': 'regularuser logged in successfully'}, status=status.HTTP_200_OK)
-    #     else:
-    #         logger.warning('Authentication failed')
-    #         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-
-
-
-# .........................................................................................
-
-
-
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -127,7 +8,6 @@ from user.models import CustomUser
 from .serializers import CustomUserSerializer
 from rest_framework import generics
 
-from .serializers import CustomUserSerializer
 from django.contrib.auth import logout
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
@@ -189,6 +69,62 @@ def user_login(request):
     else:
         return Response({'error': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
 
+=======
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from sponsors.models import CustomUser
+from .serializers import CustomUserSerializer
+from django.contrib.auth import authenticate, login
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
+from donation.models import Donation
+from .serializers import DonationSerializer
+import logging   
+logger = logging.getLogger(__name__)
+
+
+class CustomUserListView(APIView):
+    def get(self, request):
+        users = CustomUser.objects.all()
+        serializer = CustomUserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+
+
+class DonationListView(APIView):
+    def get(self, request):
+        donations = Donation.objects.all()
+        serializer = DonationSerializer(donations, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = DonationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CustomUserDetailView(APIView):
+    def get(self, request, id, format=None):
+        user = CustomUser.objects.get(id=id)
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        user = CustomUser.objects.get(id=id)
+        serializer = CustomUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id, format=None):
+        user = CustomUser.objects.get(id=id)
+        user.delete()
+        return Response("User deleted", status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -204,3 +140,50 @@ def user_logout_all(request):
 
 
 
+class CustomUserRegistrationView(APIView):
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            
+            password = serializer.validated_data['password']
+            hashed_password = make_password(password)
+            serializer.validated_data['password'] = hashed_password
+
+            
+            serializer.save()
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CustomUserLoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return Response({'message': 'Sponsor logged in successfully'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class DonationDetailView(APIView):
+    def get(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        serializer = DonationSerializer(donation)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        serializer = DonationSerializer(donation, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id, format=None):
+        donation = Donation.objects.get(id=id)
+        donation.delete()
+        return Response("Donation deleted", status=status.HTTP_204_NO_CONTENT)
