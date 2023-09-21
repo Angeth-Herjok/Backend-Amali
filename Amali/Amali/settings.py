@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,7 +41,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'phonenumber_field',
-    'user',
+    'user',  
+    'donation',
+    'drf_yasg',
+    'rest_framework_swagger',  
+    
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -51,9 +56,11 @@ AUTHENTICATION_BACKENDS = [
     'rest_framework.authtoken',
     'phonenumber_field',
     'sponsors',
-
     'donation',
     'rest_framework',
+    'rest_framework_swagger',
+    'drf_yasg',     
+
 ]
 
 MIDDLEWARE = [
@@ -91,19 +98,21 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-from decouple import config
+# from decouple import config
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dbname',
+        'USER': 'amaligroups',
+        'PASSWORD': 'dbname1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+MEDIA_URL='/profile_pictures/'
+MEDIA_ROOT =os.path.join(BASE_DIR, 'profile_pictures')
 
 
 
@@ -170,7 +179,7 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'sponsors.CustomUser'  
-
+AUTH_USER_MODEL = 'user.CustomUser'  
 
 
 AUTHENTICATION_BACKENDS = [

@@ -1,18 +1,15 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
-from user.models import CustomUser
-
+from user.models import CustomUser, Athlete, Sponsor
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = '__all__'
-
 class GroupSerializer(serializers.ModelSerializer):
     permissions = PermissionSerializer(many=True, read_only=True)
     class Meta:
         model = Group
         fields = '__all__'
-
 class CustomUserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True, read_only=True)
     class Meta:
@@ -25,12 +22,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'role',
             'groups',
             'password',
-            
         )
         extra_kwargs = {
             'password': {'write_only': True},
         }
-
     def create(self, validated_data):
         confirm_password = validated_data.pop('confirm_password', None)
         if confirm_password and validated_data['password'] != confirm_password:
@@ -39,27 +34,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-from sponsors.models import CustomUser
-
-class CustomUserSerializer(serializers.ModelSerializer):
+class AthleteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CustomUser
-        fields = ('id', 'username', 'email', 'phoneNumber', 'organisation', 'bio')
-        extra_kwargs = {'password': {'write_only': True}}
-
-
-
-
-
-
-
-
-
-from donation.models import Donation
-
-class DonationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Donation
+        model = Athlete
         fields = '__all__'
+class SponsorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sponsor
+        fields = '__all__'
+
+
+
+
