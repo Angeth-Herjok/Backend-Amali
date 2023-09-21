@@ -1,1 +1,1 @@
-gunicorn learning_log.wsgi --log-file 
+web: gunicorn Amali.wsgi --log-file 
