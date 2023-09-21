@@ -1,17 +1,19 @@
-from django.contrib import admin
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
+from user.models import Sponsor,Athlete
 
-# Create your models here.
+
+
 class Donation(models.Model):
-    
+    athlete=models.OneToOneField(Athlete,on_delete=models.CASCADE,default="")
+
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    # sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE)
-    # athlete = models.ForeignKey(Athlete, on_delete=models.CASCADE)
-   
+    sponsors = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name='sponsored_donations',default="")
+
     def __str__(self):
-        return f" Amount: {self.amount}"  
-        # Donation from {self.sponsor.Name} to {self.athlete.name} 
-      
+        return f"Amount: {self.amount} Donation from {self.sponsors.username} to {self.user.username}"
+
     class Meta:
-        verbose_name_plural= "Donations"
+        verbose_name_plural = "Donations"
 

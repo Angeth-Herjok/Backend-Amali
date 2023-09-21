@@ -6,7 +6,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 class CustomUser(AbstractUser):
     USER_ROLES = (
         ('athlete', 'Athlete'),
-        ('regular_user', 'Regular User'),
+        ('regular_user', 'RegularUser'),
+        ('sponsor', 'Sponsor'),
         ('admin', 'Admin'),
     )
     role = models.CharField(_('Role'), max_length=15, choices=USER_ROLES, default='regular_user')
@@ -26,6 +27,20 @@ class CustomUser(AbstractUser):
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
     )
-
     def __str__(self):
         return self.email
+class Athlete(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    age = models.PositiveIntegerField()
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='')
+    profile_picture = models.ImageField(upload_to='profile_pictures/')
+    achievements = models.TextField()
+class Sponsor(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
+    Name = models.CharField(max_length=255)
+    Organisation = models.CharField(max_length=255)
+    Bio = models.TextField()
