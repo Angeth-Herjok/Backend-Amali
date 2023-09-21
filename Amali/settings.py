@@ -99,7 +99,6 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # from decouple import config
-import dj_database_url
 from decouple import config
 
 # DATABASES = {
@@ -113,8 +112,6 @@ from decouple import config
 #     }
 # }
 
-import dj_database_url
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 MEDIA_URL='/profile_pictures/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'profile_pictures')
@@ -196,7 +193,11 @@ django_heroku.settings(locals())
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 import dj_database_url
- DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+
 
 
 
