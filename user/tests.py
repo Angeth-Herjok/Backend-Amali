@@ -26,7 +26,6 @@ class CustomUserModelTest(TestCase):
         self.user.groups.add(self.group)
         self.assertIn(self.group, self.user.groups.all())
 
-
     def test_user_phone_number_field(self):
         self.user.phone_number = PhoneNumber.from_string('+1234567890')
         self.assertEqual(self.user.phone_number.as_e164, '+1234567890')
