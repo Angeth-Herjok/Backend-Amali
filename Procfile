@@ -1,1 +1,6 @@
-web: gunicorn Amali.wsgi --log-file 
+web: gunicorn Amali.wsgi --log-file -
+
+
+
+
+
