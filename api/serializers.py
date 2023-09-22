@@ -1,15 +1,19 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
 from user.models import CustomUser, Athlete, Sponsor
+from donation.models import Donation
+
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Permission
         fields = '__all__'
+
 class GroupSerializer(serializers.ModelSerializer):
     permissions = PermissionSerializer(many=True, read_only=True)
     class Meta:
         model = Group
         fields = '__all__'
+
 class CustomUserSerializer(serializers.ModelSerializer):
     groups = GroupSerializer(many=True, read_only=True)
     class Meta:
@@ -34,13 +38,21 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
 class AthleteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Athlete
         fields = '__all__'
+
 class SponsorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sponsor
+        fields = '__all__'
+
+
+class DonationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Donation
         fields = '__all__'
 
 

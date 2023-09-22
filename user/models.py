@@ -29,6 +29,7 @@ class CustomUser(AbstractUser):
     )
     def __str__(self):
         return self.email
+
 class Athlete(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     age = models.PositiveIntegerField()
@@ -39,6 +40,7 @@ class Athlete(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='')
     profile_picture = models.ImageField(upload_to='profile_pictures/')
     achievements = models.TextField()
+    
 class Sponsor(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     Name = models.CharField(max_length=255)
