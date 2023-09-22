@@ -99,8 +99,6 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# from decouple import config
-from decouple import config
 
 # DATABASES = {
 #     'default': {
