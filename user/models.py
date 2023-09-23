@@ -46,3 +46,4 @@ class Sponsor(models.Model):
     Name = models.CharField(max_length=255)
     Organisation = models.CharField(max_length=255)
     Bio = models.TextField()
+

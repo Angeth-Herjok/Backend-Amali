@@ -12,8 +12,8 @@ urlpatterns = [
     path('users/<int:id>/', views.UserDetailView.as_view(), name='user-list'),
     path('sponsors/', views.SponsorListView.as_view(), name='user-list'),
     path('sponsors/<int:id>/', views.SponsorDetailView.as_view(), name='user-list'),
-    path('donations/', DonationListView.as_view(), name='donation-list'),
-    path('donations/<int:id>/', DonationDetailView.as_view(), name='donation-detail'),
+    path('donations/', views.DonationListView.as_view(), name='donation-list'),
+    path('donations/<int:id>/', views.DonationDetailView.as_view(), name='donation-detail'),
 ]
 
 
