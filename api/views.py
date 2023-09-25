@@ -1,3 +1,4 @@
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -46,9 +47,10 @@ class AthleteDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field='id'
 
 @api_view(['POST'])
+
 @permission_classes([AllowAny])
 def register(request):
-    role = request.data.get('role')
+    role = request.data.get("role")
     if role not in ['regular_user','athlete','sponsor']:
         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
     serializer = None
@@ -67,8 +69,10 @@ def register(request):
             athlete.save() 
     return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(['POST'])
+
 @permission_classes([AllowAny])
 def user_login(request):
     email = request.data.get('email')
@@ -88,6 +92,7 @@ def user_logout(request):
     logout(request)
     return Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
 
+
 class DonationListView(APIView):
     def get(self, request):
         donations = Donation.objects.all()
@@ -99,6 +104,7 @@ class DonationListView(APIView):
             serializer.save()
         return Response({'message': 'Donation made successfully.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class DonationDetailView(APIView):
     def get(self, request, id, format=None):
