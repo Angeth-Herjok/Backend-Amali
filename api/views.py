@@ -1,4 +1,3 @@
-
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -12,9 +11,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.db.models import Q
-
-
-
 from rest_framework.views import APIView
 from donation.models import Donation
 from .serializers import DonationSerializer
@@ -47,7 +43,6 @@ class AthleteDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field='id'
 
 @api_view(['POST'])
-
 @permission_classes([AllowAny])
 def register(request):
     role = request.data.get("role")
@@ -72,7 +67,6 @@ def register(request):
     
 
 @api_view(['POST'])
-
 @permission_classes([AllowAny])
 def user_login(request):
     email = request.data.get('email')
@@ -112,6 +106,7 @@ class DonationDetailView(APIView):
         serializer = DonationSerializer(donation)
         return Response(serializer.data)
 
+
     def put(self, request, id, format=None):
         donation = Donation.objects.get(id=id)
         serializer = DonationSerializer(donation, data=request.data)
@@ -119,6 +114,7 @@ class DonationDetailView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def delete(self, request, id, format=None):
         donation = Donation.objects.get(id=id)
