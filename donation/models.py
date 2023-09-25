@@ -15,4 +15,3 @@ class Donation(models.Model):
 
     class Meta:
         verbose_name_plural = "Donations"
-

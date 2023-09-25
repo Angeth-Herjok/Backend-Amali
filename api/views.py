@@ -64,7 +64,7 @@ def register(request):
         user.save()
     if role == 'athlete':
             athlete = Athlete(user=user, age=request.data.get('age'), gender=request.data.get('gender'))
-            athlete.save()
+            athlete.save() 
     return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -88,14 +88,6 @@ def user_logout(request):
     logout(request)
     return Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
 
-@api_view(['POST'])
-def user_logout_all(request):
-     logout(request)
-     return Response({'message': 'Logged out of all devices  successfully.'}, status=status.HTTP_200_OK)
-
-
-
-
 class DonationListView(APIView):
     def get(self, request):
         donations = Donation.objects.all()
@@ -105,7 +97,7 @@ class DonationListView(APIView):
         serializer = DonationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Donation made successfully.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DonationDetailView(APIView):
