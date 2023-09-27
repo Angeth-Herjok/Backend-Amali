@@ -7,3 +7,4 @@ service-account
 myenv
 env
 .env
+*.pyc
