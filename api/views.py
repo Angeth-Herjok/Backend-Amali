@@ -11,9 +11,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.db.models import Q
-
-
-
 from rest_framework.views import APIView
 from donation.models import Donation
 from .serializers import DonationSerializer
@@ -48,7 +45,7 @@ class AthleteDetailView(generics.RetrieveUpdateDestroyAPIView):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
-    role = request.data.get('role')
+    role = request.data.get("role")
     if role not in ['regular_user','athlete','sponsor']:
         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
     serializer = None
@@ -67,6 +64,7 @@ def register(request):
             athlete.save() 
     return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -88,6 +86,7 @@ def user_logout(request):
     logout(request)
     return Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
 
+
 class DonationListView(APIView):
     def get(self, request):
         donations = Donation.objects.all()
@@ -100,11 +99,13 @@ class DonationListView(APIView):
         return Response({'message': 'Donation made successfully.'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class DonationDetailView(APIView):
     def get(self, request, id, format=None):
         donation = Donation.objects.get(id=id)
         serializer = DonationSerializer(donation)
         return Response(serializer.data)
+
 
     def put(self, request, id, format=None):
         donation = Donation.objects.get(id=id)
@@ -113,6 +114,7 @@ class DonationDetailView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def delete(self, request, id, format=None):
         donation = Donation.objects.get(id=id)

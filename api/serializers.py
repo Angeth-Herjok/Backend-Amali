@@ -1,3 +1,4 @@
+
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
 from user.models import CustomUser, Athlete, Sponsor
@@ -30,6 +31,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True},
         }
+
     def create(self, validated_data):
         confirm_password = validated_data.pop('confirm_password', None)
         if confirm_password and validated_data['password'] != confirm_password:
