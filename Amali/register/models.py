@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+
 class RegistrationManager(BaseUserManager):
     def create_user(self, email, password,**other_fields,):
         if not email:

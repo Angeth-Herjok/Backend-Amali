@@ -3,7 +3,6 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from register.models import Sponsor, Athlete
 
-
 class Donation(models.Model):
     athlete=models.OneToOneField(Athlete, on_delete=models.CASCADE, default="")
     amount = models.DecimalField(max_digits=10, decimal_places=2)

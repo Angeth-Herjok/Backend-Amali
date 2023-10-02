@@ -1,6 +1,7 @@
 import requests
 from django.http import JsonResponse
 
+
 def get_access_token(request):
     consumer_key = "BKmBB1FUf9w2dY8zdLYHZFu4TsQRAizF"
     consumer_secret = "a1GI0hpiJXVYgypP"
