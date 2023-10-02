@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'phonenumber_field',
-    'user',  
+    'register',
+    'comments',
+    'contact',
     'donation',
     'drf_yasg',
     'rest_framework_swagger',  
@@ -66,7 +68,7 @@ AUTHENTICATION_BACKENDS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddgit config pull.rebase true leware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',      
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,6 +101,7 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from decouple import config
 
 DATABASES = {
     'default': {
@@ -110,6 +113,13 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
+
+
+
+
+
+
+
 
 
 MEDIA_URL='/profile_pictures/'
@@ -179,23 +189,23 @@ REST_FRAMEWORK = {
    
 }
 
-AUTH_USER_MODEL = 'sponsors.CustomUser'  
-AUTH_USER_MODEL = 'user.CustomUser'  
+ 
+AUTH_USER_MODEL = 'register.CustomUser'  
 
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-import django_heroku
-django_heroku.settings(locals())
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# import django_heroku
+# django_heroku.settings(locals())
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj_database_url
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
 
 
 
