@@ -27,7 +27,7 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Sponsor API",
+        title="Amali API",
         default_version='v1',
         description="API for managing sponsors information on Amali web portal",
         contact=openapi.Contact(email="amaliathletes@gmail.com"),
@@ -43,7 +43,6 @@ urlpatterns = [
     path('api/',include('api.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('mpesadaraja', include("mpesadaraja.urls"))
-    
     
 ]
  

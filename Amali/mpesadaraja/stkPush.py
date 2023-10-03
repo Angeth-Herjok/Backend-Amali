@@ -13,7 +13,7 @@ def initiate_stk_push(request):
         access_token = access_token_json.get('access_token')
         if access_token:
             amount = 1
-            phone = '254759942644'
+            phone = '254746732908'
             passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
             business_short_code = '174379'
             process_request_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
