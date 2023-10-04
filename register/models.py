@@ -4,7 +4,6 @@ from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-
 class RegistrationManager(BaseUserManager):
     def create_user(self, email, password,**other_fields,):
         if not email:
@@ -19,6 +18,7 @@ class RegistrationManager(BaseUserManager):
         other_fields.setdefault("is_superuser", True)
         return self.create_user(email, password, **other_fields)
 
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     full_name =models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -31,6 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
 
 class Athlete(models.Model):
     full_name = models.CharField(max_length=100, null=False)

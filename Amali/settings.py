@@ -52,9 +52,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    # 'regularuser.custom_auth.CustomAuthBackend',
     'rest_framework',
-    # 'knox',
     'rest_framework.authtoken',
     'phonenumber_field',
     'donation',
@@ -111,7 +109,16 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 #         'PORT': config('DB_PORT'),
 #     }
 # }
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'amaliteam',
+        'USER': 'amaligroups',
+        'PASSWORD': 'dbname1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -173,14 +180,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        # 'knox.auth.TokenAuthentication',
-        
-    ],
-   
-}
 
 AUTH_USER_MODEL = 'register.CustomUser'  
 
@@ -189,15 +188,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-import django_heroku
-django_heroku.settings(locals())
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# import django_heroku
+# django_heroku.settings(locals())
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj_database_url
+# import dj_database_url
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
 
 
 
