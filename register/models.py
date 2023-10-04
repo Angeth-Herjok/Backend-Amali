@@ -44,7 +44,7 @@ class Athlete(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='')
     profile_picture = models.ImageField(upload_to='profile_pictures/')
     achievements = models.TextField()
-    phone_number = PhoneNumberField(blank=True, null=True)
+    phone_number = PhoneNumberField(blank=True, null=False, default=None)
     role = models.CharField(max_length=20, default='athlete')
 
 class Sponsor(models.Model):
