@@ -12,5 +12,6 @@ class Donation(models.Model):
     def __str__(self):
         return f"Amount: {self.amount} Donation from {self.sponsors} to {self.athlete}"
 
+
     class Meta:
         verbose_name_plural = "Donations"

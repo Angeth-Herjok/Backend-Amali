@@ -16,7 +16,6 @@ from donation.models import Donation
 from .serializers import DonationSerializer, CommentSerializer
 from comments.models import Comment
 from contact.models import ContactMessage
-
 from .serializers import ContactMessageSerializer
 
 
@@ -155,7 +154,6 @@ class DonationDetailView(APIView):
         donation = Donation.objects.get(id=id)
         donation.delete()
         return Response("Donation deleted", status=status.HTTP_204_NO_CONTENT)
-
 
 
 class ContactMessageCreateView(generics.CreateAPIView):
