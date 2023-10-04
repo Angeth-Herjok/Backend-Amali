@@ -98,24 +98,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Amali.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# from decouple import config
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE':'django.db.backends.postgresql_psycopg2',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT'),
-#     }
-# }
-
-
 
 MEDIA_URL='/profile_pictures/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'profile_pictures')
@@ -193,18 +175,20 @@ import django_heroku
 django_heroku.settings(locals())
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'amaliteam',
+        'USER': 'amaligroups',
+        'PASSWORD': 'dbname1234',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
+# import dj_database_url
 
-
-
-
-
-
-
-
-
+# DATABASES = {
+    # 'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
