@@ -53,5 +53,5 @@ class Sponsor(models.Model):
     password =models.CharField(max_length=32)
     Organisation = models.CharField(max_length=255, null=True)
     Bio = models.TextField()
-    phone_number = PhoneNumberField( blank=True, null=False)
+    phone_number = PhoneNumberField( blank=True, null=False, default= None)
     role = models.CharField(max_length=20, default='sponsor')
