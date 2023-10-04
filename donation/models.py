@@ -4,9 +4,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 from register.models import Sponsor, Athlete
 
 class Donation(models.Model):
-    athlete=models.OneToOneField(Athlete, on_delete=models.CASCADE, default="")
+    athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, default="")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    sponsors = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name='sponsored_donations',default="")
+    sponsors = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name='sponsored_donations', default="")
     
 
     def __str__(self):
