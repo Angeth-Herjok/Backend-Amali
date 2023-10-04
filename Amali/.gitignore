@@ -3,6 +3,7 @@ db.sqlite3
 cache
 build
 service-account
+/staticfiles/
 myenv
 env
 .env
