@@ -27,7 +27,9 @@ SECRET_KEY = 'django-insecure-a5m@wz^_0(%j!+r&a6i7=pz3uk&7(b4##+x5h)vi7x2%9i%rl4
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "amali-backend-e1fff6a686ab.herokuapp.com"
+    "amali-backend-e1fff6a686ab.herokuapp.com",
+    "127.0.0.1"
+
 ]
 
 

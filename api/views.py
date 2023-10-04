@@ -69,7 +69,7 @@ def register(request):
             athlete = Athlete(age=request.data.get('age'), gender=request.data.get('gender'), full_name=request.data.get('full_name'), email=request.data.get('email'), password=request.data.get('password'),profile_picture=request.data.get('profile_picture'),achievements=request.data.get('achievements'),phone_number=request.data.get('phone_number'),role=request.data.get('role'))
             athlete.save()
     elif role == 'sponsor':
-              sponsor = Sponsor(Bio=request.data.get('Bio'), full_name=request.data.get('full_name'),password=request.data.get('password'), email=request.data.get('email'),Organisation=request.data.get('Organisation'),role=request.data.get('role'))
+              sponsor = Sponsor(Bio=request.data.get('Bio'), full_name=request.data.get('full_name'),password=request.data.get('password'), phone_number=request.data.get('phone_number'), email=request.data.get('email'),Organisation=request.data.get('Organisation'),role=request.data.get('role'))
               sponsor.save() 
     return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
