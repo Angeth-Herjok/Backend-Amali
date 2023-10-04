@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
-
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,9 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
     'phonenumber_field',
-    'register',
-    'comments',
-    'contact',
+    'user',  
     'donation',
     'drf_yasg',
     'rest_framework_swagger',  
@@ -54,6 +51,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    # 'regularuser.custom_auth.CustomAuthBackend',
     'rest_framework',
     # 'knox',
     'rest_framework.authtoken',
@@ -98,6 +96,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Amali.wsgi.application'
 
 
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.postgresql_psycopg2',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
+#     }
+# }
+
 
 MEDIA_URL='/profile_pictures/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'profile_pictures')
@@ -121,7 +134,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+# import logging
+# logging.basicConfig()
+# logger = logging.getLogger('django.db.backends')
+# logger.setLevel(logging.DEBUG)
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -163,8 +179,8 @@ REST_FRAMEWORK = {
    
 }
 
- 
-AUTH_USER_MODEL = 'register.CustomUser'  
+AUTH_USER_MODEL = 'sponsors.CustomUser'  
+AUTH_USER_MODEL = 'user.CustomUser'  
 
 
 AUTHENTICATION_BACKENDS = [
@@ -180,3 +196,13 @@ import dj_database_url
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
+
+
+
+
+
+
+
+
+
+

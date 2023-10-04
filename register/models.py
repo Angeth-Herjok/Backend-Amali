@@ -33,18 +33,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         super().save(*args, **kwargs)
 
 class Athlete(models.Model):
-    full_name =models.CharField(max_length=100,null=False,default='')
+    full_name = models.CharField(max_length=100, null=False)
     email = models.EmailField(unique=True)
-    password =models.CharField(max_length=128)
+    password = models.CharField(max_length=128)
     age = models.PositiveIntegerField()
+    
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),
     ]
-    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='')
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    
     profile_picture = models.ImageField(upload_to='profile_pictures/')
     achievements = models.TextField()
-    phone_number = PhoneNumberField(blank=True, null=False, default=None)
+    phone_number = PhoneNumberField(blank=True)  
     role = models.CharField(max_length=20, default='athlete')
 
 class Sponsor(models.Model):
