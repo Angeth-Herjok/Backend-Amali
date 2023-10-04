@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-a5m@wz^_0(%j!+r&a6i7=pz3uk&7(b4##+x5h)vi7x2%9i%rl4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "amali-backend-e1fff6a686ab.herokuapp.com"
+]
 
 
 # Application definition
@@ -109,16 +111,16 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 #         'PORT': config('DB_PORT'),
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'amaliteam',
-        'USER': 'amaligroups',
-        'PASSWORD': 'dbname1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'amaliteam',
+#         'USER': 'amaligroups',
+#         'PASSWORD': 'dbname1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 
@@ -188,15 +190,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# import django_heroku
-# django_heroku.settings(locals())
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+import django_heroku
+django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# import dj_database_url
+import dj_database_url
 
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-# }
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 
 
