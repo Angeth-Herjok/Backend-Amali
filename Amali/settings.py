@@ -112,17 +112,6 @@ WSGI_APPLICATION = 'Amali.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'amaliteam',
-#         'USER': 'amaligroups',
-#         'PASSWORD': 'dbname1234',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
 
 
 
