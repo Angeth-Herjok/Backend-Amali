@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-a5m@wz^_0(%j!+r&a6i7=pz3uk&7(b4##+x5h)vi7x2%9i%rl4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOW_ALL_ORIGINS=True
 ALLOWED_HOSTS = [
     "amali-backend-e1fff6a686ab.herokuapp.com",
     "127.0.0.1"
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'donation',
     'drf_yasg',
     'rest_framework_swagger',  
+    'corsheaders',
     
 ]
 
@@ -69,6 +71,7 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',      
     'django.contrib.auth.middleware.AuthenticationMiddleware',
