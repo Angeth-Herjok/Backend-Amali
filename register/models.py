@@ -20,7 +20,7 @@ class RegistrationManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    full_name =models.CharField(max_length=100)
+    full_name =models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password =models.CharField(max_length=200)
     role = models.CharField(max_length=255, default='regular_user')
@@ -34,7 +34,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
 class Athlete(models.Model):
-    full_name = models.CharField(max_length=100, null=False)
+    full_name = models.CharField(max_length=255, null=False)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     age = models.PositiveIntegerField()
@@ -51,7 +51,7 @@ class Athlete(models.Model):
     role = models.CharField(max_length=20, default='athlete')
 
 class Sponsor(models.Model):
-    full_name =models.CharField(max_length=100)
+    full_name =models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password =models.CharField(max_length=32)
     Organisation = models.CharField(max_length=255, null=True)
