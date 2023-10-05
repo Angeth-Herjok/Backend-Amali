@@ -58,3 +58,5 @@ class Sponsor(models.Model):
     Bio = models.TextField()
     phone_number = PhoneNumberField( blank=True, null=False, default= None)
     role = models.CharField(max_length=20, default='sponsor')
+
+    # models
