@@ -4,7 +4,7 @@ from register.models import CustomUser, Athlete, Sponsor
 from donation.models import Donation
 from comments.models import Comment
 from contact.models import ContactMessage
-
+from video.models import Video
 
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,4 +70,9 @@ class ContactMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactMessage
         fields = ('name','email','message')
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'
         

@@ -1,10 +1,9 @@
 from django.contrib import admin
-from django.urls import path
-from . import views
+from django.urls import path, include
+from .import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('accesstoken/', views.get_access_token, name='get_access_token'),
-    path('stkpush/', views.initiate_stk_push, name='initiate_stk_push'),
-    
+    path('stkpush/', views.DarajaApiView.as_view(), name='initiate_stk_push'),
+    path('callback/', views.process_stk_callback)
 ]

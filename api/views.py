@@ -17,6 +17,8 @@ from .serializers import DonationSerializer, CommentSerializer
 from comments.models import Comment
 from contact.models import ContactMessage
 from .serializers import ContactMessageSerializer
+from video.models import Video
+from .serializers import VideoSerializer
 
 
 
@@ -236,3 +238,41 @@ def delete_comment(request, pk):
 
     comment.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def upload_video(request):
+    serializer = VideoSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message': 'Video has been uploaded successfully.'}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_all_videos(request):
+    videos = Video.objects.all()
+    serializer = VideoSerializer(videos, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def video_detail(request, pk):
+    try:
+        video = Video.objects.get(pk=pk)
+    except Video.DoesNotExist:
+        return Response({'message': 'Video not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = VideoSerializer(video)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = VideoSerializer(video, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Video has been edited successfully.'}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        video.delete()
+        return Response({'message': 'Video has been deleted.'}, status=status.HTTP_204_NO_CONTENT)
