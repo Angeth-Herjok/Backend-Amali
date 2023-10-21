@@ -51,84 +51,84 @@ class AthleteDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field='id'
 
 
-# @api_view(['POST'])
-# @permission_classes([AllowAny])
-# def register(request):
-#     role = request.data.get("role")
-#     if role not in ['regular_user', 'athlete', 'sponsor']:
-#         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
-
-#     if CustomUser.objects.filter(email=request.data.get('email')).exists():
-#         return Response({'message': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
-
-#     serializer = None
-#     if role == 'regular_user':
-#         serializer = CustomUserSerializer(data=request.data)
-#     elif role == 'athlete':
-#         serializer = AthleteSerializer(data=request.data)
-#     elif role == 'sponsor':
-#         serializer = SponsorSerializer(data=request.data)
-
-#     if serializer.is_valid():
-#         user = serializer.save()
-#         if isinstance(user, CustomUser):  
-#             user.set_password(request.data.get('password'))
-#             user.save()
-
-#         return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
-
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
     role = request.data.get("role")
-    
     if role not in ['regular_user', 'athlete', 'sponsor']:
         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+    if CustomUser.objects.filter(email=request.data.get('email')).exists():
+        return Response({'message': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
+
     serializer = None
-    
     if role == 'regular_user':
         serializer = CustomUserSerializer(data=request.data)
     elif role == 'athlete':
-        serializer = CustomUserSerializer(data=request.data)
+        serializer = AthleteSerializer(data=request.data)
     elif role == 'sponsor':
-        serializer = CustomUserSerializer(data=request.data)
-    
+        serializer = SponsorSerializer(data=request.data)
+
     if serializer.is_valid():
         user = serializer.save()
-        user.set_password(request.data.get('password'))
-        user.save()
-        
-        if role == 'athlete':
-            athlete = Athlete(
-                age=request.data.get('age'),
-                gender=request.data.get('gender'),
-                full_name=request.data.get('full_name'),
-                email=request.data.get('email'),
-                password=request.data.get('password'),
-                profile_picture=request.data.get('profile_picture'),
-                achievements=request.data.get('achievements'),
-                phone_number=request.data.get('phone_number'),
-                role=request.data.get('role')
-            )
-            athlete.save()
-        elif role == 'sponsor':
-            sponsor = Sponsor(
-                Bio=request.data.get('Bio'),
-                full_name=request.data.get('full_name'),
-                password=request.data.get('password'),
-                phone_number=request.data.get('phone_number'),
-                email=request.data.get('email'),
-                Organisation=request.data.get('Organisation'),
-                role=request.data.get('role')
-            )
-            sponsor.save()
-        
+        if isinstance(user, CustomUser):  
+            user.set_password(request.data.get('password'))
+            user.save()
+
         return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
-    
+
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def register(request):
+#     role = request.data.get("role")
+    
+#     if role not in ['regular_user', 'athlete', 'sponsor']:
+#         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
+    
+#     serializer = None
+    
+#     if role == 'regular_user':
+#         serializer = CustomUserSerializer(data=request.data)
+#     elif role == 'athlete':
+#         serializer = CustomUserSerializer(data=request.data)
+#     elif role == 'sponsor':
+#         serializer = CustomUserSerializer(data=request.data)
+    
+#     if serializer.is_valid():
+#         user = serializer.save()
+#         user.set_password(request.data.get('password'))
+#         user.save()
+        
+#         if role == 'athlete':
+#             athlete = Athlete(
+#                 age=request.data.get('age'),
+#                 gender=request.data.get('gender'),
+#                 full_name=request.data.get('full_name'),
+#                 email=request.data.get('email'),
+#                 password=request.data.get('password'),
+#                 profile_picture=request.data.get('profile_picture'),
+#                 achievements=request.data.get('achievements'),
+#                 phone_number=request.data.get('phone_number'),
+#                 role=request.data.get('role')
+#             )
+#             athlete.save()
+#         elif role == 'sponsor':
+#             sponsor = Sponsor(
+#                 Bio=request.data.get('Bio'),
+#                 full_name=request.data.get('full_name'),
+#                 password=request.data.get('password'),
+#                 phone_number=request.data.get('phone_number'),
+#                 email=request.data.get('email'),
+#                 Organisation=request.data.get('Organisation'),
+#                 role=request.data.get('role')
+#             )
+#             sponsor.save()
+        
+#         return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
+    
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
