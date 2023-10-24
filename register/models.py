@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+
 class RegistrationManager(BaseUserManager):
     def create_user(self, email, password,**other_fields,):
         if not email:
@@ -38,7 +39,7 @@ class Athlete(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     age = models.PositiveIntegerField()
-    
+
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),

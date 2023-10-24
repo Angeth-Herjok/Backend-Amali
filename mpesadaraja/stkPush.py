@@ -18,7 +18,9 @@ def initiate_stk_push(amount, phone, full_name, email):
         process_request_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
         timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
         password = base64.b64encode((business_short_code + passkey + timestamp).encode()).decode()
-        party_a = phone
+        party_a = phoneOrganization": "AmaliStars",
+  "role": "sponsor",
+  "password": "mnyash@2023"
         transaction_desc = 'stkpush test'
 
         stk_push_headers = {
