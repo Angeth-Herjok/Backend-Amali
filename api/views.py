@@ -26,7 +26,7 @@ from .serializers import VideoSerializer
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.filter(role='regular_user')
     serializer_class = CustomUserSerializer
-= 
+
 class AthleteListView(generics.ListAPIView):
     queryset = Athlete.objects.filter(role='athlete')
     serializer_class = AthleteSerializer
