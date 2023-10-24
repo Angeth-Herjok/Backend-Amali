@@ -28,10 +28,5 @@ urlpatterns = [
     path('upload_video/', views.upload_video, name='upload_video'),
     path('videos/', views.get_all_videos, name='get_all_videos'),
     path('videos/<int:pk>/', views.video_detail, name='video_detail'),
-
-
-
-
-
-    
+ 
 ]
