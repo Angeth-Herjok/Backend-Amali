@@ -17,10 +17,8 @@ from .serializers import DonationSerializer, CommentSerializer
 from comments.models import Comment
 from contact.models import ContactMessage
 from .serializers import ContactMessageSerializer
-from video.models import Video
-from .serializers import VideoSerializer
-
-
+# from video.models import Video
+# from .serializers import VideoSerializer
 
 
 class UserListView(generics.ListAPIView):
