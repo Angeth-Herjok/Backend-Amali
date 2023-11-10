@@ -16,7 +16,7 @@ class DarajaApiView(APIView):
         full_name = body.get('full_name')
         email = body.get('email')
         amount = body.get('amount', 0)
-
+        
         success = initiate_stk_push(amount, phone, full_name, email)
 
         if success:
