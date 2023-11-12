@@ -17,6 +17,9 @@ from .serializers import DonationSerializer, CommentSerializer
 from comments.models import Comment
 from contact.models import ContactMessage
 from .serializers import ContactMessageSerializer
+from django.core.mail import send_mail
+from django.conf import settings
+
 # from video.models import Video
 # from .serializers import VideoSerializer
 
@@ -210,26 +213,6 @@ class DonationDetailView(APIView):
         return Response("Donation deleted", status=status.HTTP_204_NO_CONTENT)
 
 
-class ContactMessageCreateView(generics.CreateAPIView):
-    queryset = ContactMessage.objects.all()
-    serializer_class = ContactMessageSerializer
-
-
-class ContactMessageDetailAPIView(generics.RetrieveAPIView):
-    queryset = ContactMessage.objects.all()
-    serializer_class = ContactMessageSerializer
-
-class ContactMessageListView(generics.ListAPIView):
-    queryset = ContactMessage.objects.all()
-    serializer_class = ContactMessageSerializer
-
-    def post(self, request):
-        serializer = ContactMessageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class CommentDetailAPIView(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
@@ -327,3 +310,38 @@ def delete_comment(request, pk):
 #     elif request.method == 'DELETE':
 #         video.delete()
 #         return Response({'message': 'Video has been deleted.'}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+class ContactMessageCreateView(generics.CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            name = request.data.get('name', 'Anonymous')
+            email = request.data.get('email', 'noreply@example.com')
+            message = request.data.get('message', '')
+
+            contact_message = serializer.save()
+
+            subject = f'Message from {name}'
+            email_message = f'\n\n{message}\n\n \n\n \n'
+
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [email]
+
+            send_mail(subject, email_message, from_email, recipient_list, fail_silently=False)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ContactMessageListView(generics.ListAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+
+
+
+
