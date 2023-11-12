@@ -173,48 +173,46 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-# import django_heroku
-# django_heroku.settings(locals())
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+import django_heroku
+django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# import dj_database_url
-
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-# }
-
-
-
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'amaliteam',
-        'USER': 'amaligroups',
-        'PASSWORD': 'dbname1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'amaliteam',
+#         'USER': 'amaligroups',
+#         'PASSWORD': 'dbname1234',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
-# Email configuration for Gmail
+
+
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Gmail's SMTP server
-EMAIL_PORT = 587  # Gmail's recommended port for TLS
-EMAIL_USE_TLS = True  # Use TLS for secure connection
-EMAIL_HOST_USER = 'angethherjok@gmail.com'  # Your Gmail email address
-EMAIL_HOST_PASSWORD = 'wqwy xzyg fpxp jxqx'  # Your Gmail email password
+EMAIL_HOST = 'smtp.gmail.com'  #
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True  
+EMAIL_HOST_USER = 'angethherjok@gmail.com'  
+EMAIL_HOST_PASSWORD = 'wqwy xzyg fpxp jxqx'  
 
-# Default "From" email address
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# Additional settings for Gmail
-EMAIL_USE_SSL = False  # Set to True if using SSL
-EMAIL_TIMEOUT = None  # Specify a timeout for the email connection, if needed
 
+EMAIL_USE_SSL = False  
+EMAIL_TIMEOUT = None 
 
 
