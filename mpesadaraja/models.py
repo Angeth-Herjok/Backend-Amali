@@ -2,20 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
-# class Donation(models.Model):
-#     full_name = models.CharField(max_length=255)  
-#     amount = models.DecimalField(max_digits=10, decimal_places=2)
-#     email = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name='sponsored_donations')
-#     phone_number = PhoneNumberField()
-
-#     def __str__(self):
-#         return f"Donation of {self.amount} from {self.full_name} to {self.email} for athlete {self.email.athlete}"
-
-#     class Meta:
-#         verbose_name_plural = "Donations"
-
-
-
 class Donation(models.Model):
     PENDING = 'pending'
     CONFIRMED = 'confirmed'
@@ -37,6 +23,10 @@ class Donation(models.Model):
             self.status = self.PENDING
 
         super().save(*args, **kwargs)
-
+    
     def payment_confirmed(self):
         return self.amount > 0 and self.status  
+
+
+
+
